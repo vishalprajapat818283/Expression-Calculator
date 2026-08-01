@@ -5,20 +5,26 @@
 #include "stack.hpp"
 #include "queue.hpp"
 
+// Reverse full string and swap bracket directions.
 std::string reverse(std::string str){
-    stack<char> tempstr;
-    std::string revstr;
+    stack<char> tempstr;      // temporary stack for reversing
+    std::string revstr;       // final reversed string
+
+    // Push all characters, then pop to get reverse order.
     for(char c : str){
         tempstr.push(c);
     }
+
     int size=tempstr.size();
     for(int i=0;i<size;i++){
 
         char temp=tempstr.pop();
+        // Ignore one leading space if reverse output starts with it.
         if(i==0 && temp==' ' ){
             continue;
         }
 
+        // Swap bracket direction after reversing.
         switch (temp){
             case '(':temp=')';
             break;
@@ -39,18 +45,21 @@ std::string reverse(std::string str){
     return revstr;
 }
 
-//expression validation function
+// Validate expression using rank rules and bracket matching.
 bool isValid(std::string str){
-    int rank=0;
+    int rank=0;  // rank must end at 1 for a valid expression
+    // Sentinel value keeps stack non-empty for safe checks.
     stack<char> opening_bracket;
     opening_bracket.push('N');
-    bool pre_digit=false;
-    bool decimal=false;
-    int digit=0;
+    bool pre_digit=false; // true if we are reading an operand
+    bool decimal=false;   // true if current operand already has '.'
+    int digit=0;          // number of chars in current operand
 
     for(char c: str){
+        // Operand character (digit or decimal point).
         if((c>=48 && c<=57)||c=='.'){
             if(c=='.'){
+                // One operand cannot have multiple decimal points.
                 if(decimal==true){
                     throw std::runtime_error("Too many decimal in one operand,like->1.2.3");
                 }
@@ -60,6 +69,7 @@ bool isValid(std::string str){
             pre_digit=true;
         }
 
+        // Opening bracket handling.
         else if(c=='('||c=='{'||c=='['){
 
             if(decimal==true && digit==1){
@@ -68,14 +78,15 @@ bool isValid(std::string str){
 
             opening_bracket.push(c);
             if(pre_digit==true){
-                rank++;
+                rank++;         // close current operand before bracket
                 pre_digit=false;
                 digit=0;
                 decimal=false;
             }
-            rank++;
+            rank++; // opening bracket adds one pending unit
         }
 
+        // Operator handling.
         else if(c=='+'||c=='-'||c=='/'||c=='*'||c=='^'){
 
             if(decimal==true && digit==1){
@@ -88,16 +99,17 @@ bool isValid(std::string str){
                 decimal=false;
                 digit=0;
             }
-            rank--;
+            rank--; // operator combines two parts into one
         }
 
+        // Closing bracket handling.
         else if(c==')'||c=='}'||c==']'){
 
             if(opening_bracket.size()==1){
                 throw std::runtime_error("bracket matching issue");
             }
-            char opening=opening_bracket.pop();
-            char closing;
+            char opening=opening_bracket.pop(); // latest opening bracket
+            char closing; // expected closing bracket
 
             if(opening=='('){                
                 closing=')';
@@ -121,16 +133,21 @@ bool isValid(std::string str){
                 digit=0;
                 decimal=false;
             }
-            rank--;
+            rank--; // a full bracket group acts like one operand
         }
     }
+
+    // Expression cannot end with incomplete decimal like "1.".
     if(decimal==true && digit == 1){
         throw std::runtime_error("invalid operand,decimal without digit");
     }
+
+    // If expression ends with a number, add it to rank once.
     if(pre_digit==true){
         rank++;
     }
 
+    // If stack has extra opening brackets, matching failed.
     if(opening_bracket.size()>1){
         throw std::runtime_error("bracket matching issue");
     }
@@ -143,21 +160,11 @@ bool isValid(std::string str){
         throw std::runtime_error("invalid expression");
     }
 }
-//preceddence function
+
+// Return precedence value for operators and brackets.
 int precedence(char c)
 {
-    // if (c == '(')
-    // {
-    //     return -2;
-    // }
-    // else if (c == '{')
-    // {
-    //     return -1;
-    // }
-    // else if (c == '[')
-    // {
-    //     return 0;
-    // }
+
     if(c=='('||c=='{'||c=='['){
         return 0;
     }
@@ -173,42 +180,40 @@ int precedence(char c)
     {
         return 3;
     }
+    // Non-operator fallback value.
     return 4;
 }
 
-//postfix function
+// Convert infix expression to space-separated postfix form.
 std::string postfix(std::string expression)
 {
-    //validating expression
-    // if(isValid(expression)==false){
-    //     throw std::std::runtime_error("invalid expression");
-    // }
+
+    // Ensure expression is valid before conversion.
     isValid(expression);
 
-    stack<char> postfix; //stack for storing operator and opening_brackets
-    postfix.push('(');
-    std::string output; //string for storing output string
+    stack<char> postfix; // stores operators and opening brackets
+    postfix.push('(');   // sentinel for final flush
+    std::string output;  // final postfix string
 
-    queue<char> number; //stack for storing number
+    queue<char> number; // stores digits of current operand
     int digit=0;
 
     for (char c : expression)
     {
-        //digit
+        // Collect digits of one number (supports decimals).
         if ((c >= 48 && c <= 57 )|| c=='.')
         {
             number.equeue(c);
             digit++;
-            // output+=c;
         }
 
-        //opening opening_bracket
+        // Push opening bracket.
         else if (c == '(' || c == '{' || c == '[')
         {   
             postfix.push(c);
         }
 
-        //opening opening_bracket
+        // Closing bracket: flush number and pop until opening bracket.
 
         else if (c == ')' || c == '}' || c == ']')
         {
@@ -219,6 +224,7 @@ std::string postfix(std::string expression)
             digit=0;
             output+=' ';
 
+            // Pop operators until matching opening bracket appears.
             char temp1 = postfix.pop();
             while (temp1 != '(' && temp1 != '{' && temp1 != '[')
             {
@@ -227,7 +233,7 @@ std::string postfix(std::string expression)
                 temp1 = postfix.pop();
             }
         }
-        //operator
+        // For operator: flush number, then pop higher/equal precedence operators.
         else if (c == '+' || c == '-' || c == '/' || c == '*' || c == '^')
         {
 
@@ -238,6 +244,7 @@ std::string postfix(std::string expression)
             digit=0;
             output+=' ';
 
+            // '^' is right-associative, so avoid popping equal '^'.
             while (precedence(c) <= precedence(postfix.top()) && c!='^')
             {
                 char top = postfix.pop();
@@ -247,10 +254,12 @@ std::string postfix(std::string expression)
             postfix.push(c);
         }
         else{
+             // Any other symbol is invalid in this expression format.
              throw std::runtime_error("invalid operator or operend");
         }
     }
 
+    // Flush trailing operand after loop ends.
     for(int i=1;i<=digit;i++){
                 char tempdigit=number.dequeue();
                 output+=tempdigit;
@@ -258,7 +267,7 @@ std::string postfix(std::string expression)
     output+=' ';
     digit=0;
 
-    //poping remaining operator
+    // Pop remaining operators.
     char temp2 = postfix.pop();
     while (temp2 != '(')
     {
@@ -270,12 +279,13 @@ std::string postfix(std::string expression)
     return output;
 }
 
+// Convert infix to prefix by reverse -> postfix -> reverse.
 std::string prefix(std::string str){
 
-    str=reverse(str);
-    str=postfix(str);
-    str=reverse(str);
-    str+=' ';
+    str=reverse(str); // reverse and swap brackets
+    str=postfix(str); // convert to postfix
+    str=reverse(str); // reverse again to get prefix order
+    str+=' ';         // keep consistent space-separated output
 
     return str;
 }

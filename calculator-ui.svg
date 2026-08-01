@@ -11,35 +11,36 @@
   </defs>
   <rect width="1200" height="720" fill="url(#bg)"/>
   <rect x="60" y="50" width="1080" height="620" rx="24" fill="url(#panel)" stroke="#334155" stroke-width="2"/>
-  <rect x="60" y="50" width="1080" height="56" rx="24" fill="#1f2937"/>
+  <rect x="60" y="50" width="1080" height="56" rx="24" fill="#d1d5db"/>
   <circle cx="95" cy="78" r="8" fill="#ef4444"/>
   <circle cx="125" cy="78" r="8" fill="#f59e0b"/>
   <circle cx="155" cy="78" r="8" fill="#22c55e"/>
-  <text x="600" y="86" text-anchor="middle" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22" font-weight="700">Expression Calculator v2.0</text>
+  <text x="600" y="87" text-anchor="middle" fill="#111827" font-family="Consolas, monospace" font-size="22" font-weight="700">Expression Calculator v2.2</text>
 
-  <text x="100" y="160" fill="#cbd5e1" font-family="Consolas, monospace" font-size="24">--Enter 'exit' for stop calculation--</text>
-  <text x="100" y="198" fill="#cbd5e1" font-family="Consolas, monospace" font-size="24">--Enter expression without space--</text>
-  <text x="100" y="236" fill="#cbd5e1" font-family="Consolas, monospace" font-size="24">--Can show postfix and prefix--</text>
-  <text x="100" y="274" fill="#cbd5e1" font-family="Consolas, monospace" font-size="22">--Can evaluate decimal number--</text>
-  <text x="100" y="304" fill="#cbd5e1" font-family="Consolas, monospace" font-size="22">--(-3+4) type expression is not acceptable--</text>
+  <text x="100" y="160" fill="#3b82f6" font-family="Consolas, monospace" font-size="24">--Enter 'exit' for stop calculation--</text>
+  <text x="100" y="198" fill="#3b82f6" font-family="Consolas, monospace" font-size="24">--Note: (-3+4) type expression is not acceptable--</text>
+  <text x="100" y="236" fill="#3b82f6" font-family="Consolas, monospace" font-size="24">--Enter expression without space--</text>
+  <text x="100" y="274" fill="#3b82f6" font-family="Consolas, monospace" font-size="24">--Can evaluate decimal number--</text>
 
-  <text x="100" y="350" fill="#93c5fd" font-family="Consolas, monospace" font-size="24">////////available operator//////</text>
-  <text x="100" y="388" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">********************</text>
-  <text x="100" y="424" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">1. '-'=Subtract</text>
-  <text x="100" y="458" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">2. '+'=Addition</text>
-  <text x="100" y="492" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">3. '*'=Multiplication</text>
-  <text x="100" y="526" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">4. '/'=Divide</text>
-  <text x="100" y="560" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">5. '^'=Power</text>
-  <text x="100" y="594" fill="#e5e7eb" font-family="Consolas, monospace" font-size="22">*******************</text>
+  <text x="100" y="338" fill="#facc15" font-family="Consolas, monospace" font-size="24">////////available operator//////</text>
+  <text x="100" y="374" fill="#d946ef" font-family="Consolas, monospace" font-size="22">********************</text>
+  <text x="100" y="408" fill="#facc15" font-family="Consolas, monospace" font-size="22">1. '-'=Subtract</text>
+  <text x="100" y="442" fill="#facc15" font-family="Consolas, monospace" font-size="22">2. '+'=Addition</text>
+  <text x="100" y="476" fill="#facc15" font-family="Consolas, monospace" font-size="22">3. '*'=Multiplication</text>
+  <text x="100" y="510" fill="#facc15" font-family="Consolas, monospace" font-size="22">4. '/'=Divide</text>
+  <text x="100" y="544" fill="#facc15" font-family="Consolas, monospace" font-size="22">5. '^'=Power</text>
+  <text x="100" y="578" fill="#d946ef" font-family="Consolas, monospace" font-size="22">*******************</text>
 
-  <rect x="735" y="312" width="330" height="150" rx="18" fill="#020617" stroke="#334155" stroke-width="2"/>
-  <text x="760" y="348" fill="#22c55e" font-family="Consolas, monospace" font-size="22">&gt;&gt;&gt; (2+3)*4</text>
-  <text x="760" y="386" fill="#cbd5e1" font-family="Consolas, monospace" font-size="22">postfix expression: 2 3 + 4 *</text>
-  <text x="760" y="424" fill="#cbd5e1" font-family="Consolas, monospace" font-size="22">prefix expression: * + 2 3 4</text>
-  <text x="760" y="462" fill="#cbd5e1" font-family="Consolas, monospace" font-size="22">result&gt; 20.000000</text>
+  <rect x="680" y="286" width="430" height="200" rx="18" fill="#020617" stroke="#334155" stroke-width="2"/>
+  <text x="705" y="324" fill="#22c55e" font-family="Consolas, monospace" font-size="21">&gt;&gt;&gt; (2+3)*4</text>
+  <text x="705" y="358" fill="#3b82f6" font-family="Consolas, monospace" font-size="20">postfix expression:</text>
+  <text x="725" y="386" fill="#e5e7eb" font-family="Consolas, monospace" font-size="20">2 3 + 4 *</text>
+  <text x="705" y="418" fill="#3b82f6" font-family="Consolas, monospace" font-size="20">prefix expression:</text>
+  <text x="725" y="446" fill="#e5e7eb" font-family="Consolas, monospace" font-size="20">* + 2 3 4</text>
+  <text x="705" y="478" fill="#3b82f6" font-family="Consolas, monospace" font-size="20">result&gt; 20.000000</text>
 
-  <rect x="735" y="480" width="330" height="140" rx="18" fill="#020617" stroke="#334155" stroke-width="2"/>
-  <text x="760" y="516" fill="#22c55e" font-family="Consolas, monospace" font-size="22">&gt;&gt;&gt; (5+7)*2</text>
-  <text x="760" y="554" fill="#cbd5e1" font-family="Consolas, monospace" font-size="22">postfix expression: 5 7 + 2 *</text>
-  <text x="760" y="592" fill="#cbd5e1" font-family="Consolas, monospace" font-size="22">prefix expression: * + 5 7 2</text>
+  <rect x="680" y="504" width="430" height="124" rx="18" fill="#111827" stroke="#7f1d1d" stroke-width="2"/>
+  <text x="705" y="540" fill="#fca5a5" font-family="Consolas, monospace" font-size="21">&gt;&gt;&gt; (2+3</text>
+  <text x="705" y="574" fill="#fecaca" font-family="Consolas, monospace" font-size="20">Invalid argument:</text>
+  <text x="705" y="602" fill="#fecaca" font-family="Consolas, monospace" font-size="20">bracket matching issue</text>
 </svg>

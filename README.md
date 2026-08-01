@@ -2,15 +2,16 @@
 
 This is a console-based infix expression calculator written in C++. It reads one expression at a time, converts it to postfix and prefix notation, and then evaluates the result using custom stack and queue implementations.
 
-This project is updated to version 2.1.
+This project is updated to version 2.2.
 
 It is also designed for DSA learning. The stack and queue are written manually instead of using STL containers so the expression-handling logic is easier to study, especially the custom stack behavior used during postfix and prefix conversion and evaluation.
 
-## Version 2.1 Update
+## Version 2.2 Update
 
 The current version improves the project documentation and reflects the calculator features more clearly.
 
 - Expression evaluation through infix to postfix and prefix conversion
+- Colorful Windows console UI using text colors
 - Custom linked-list stack and queue implementations
 - Support for decimal numbers
 - Support for nested brackets and operator precedence
@@ -23,11 +24,32 @@ The current version improves the project documentation and reflects the calculat
 - [postfix_prefix.hpp](postfix_prefix.hpp) contains the postfix and prefix conversion logic.
 - [stack.hpp](stack.hpp) provides the custom linked-list stack used by the algorithm.
 - [queue.hpp](queue.hpp) provides the custom linked-list queue used while parsing numbers.
+- [main.exe](main.exe) is the prebuilt Windows executable for the calculator.
 - [calculator-ui.svg](calculator-ui.svg) is a UI preview image for the calculator screen.
 
 ## Project Overview
 
 The calculator accepts a single infix expression at a time, converts it into postfix and prefix notation, and evaluates the postfix expression. The program runs continuously until the user types `exit`.
+
+## Colorful UI
+
+The colored console interface is added in [main.cpp](main.cpp) with the Windows console API.
+
+- `windows.h` provides `SetConsoleTextAttribute()`
+- `setColor()` is a small helper that applies the selected text color
+- The header, prompts, operator list, expressions, results, and errors each use different colors
+
+This is what gives the calculator its colorful terminal look on Windows.
+
+The current color layout is:
+
+- Header banner: light gray background
+- Input prompt: bright green
+- Postfix and prefix labels: blue
+- Printed expressions and results: light gray
+- Operator section title: yellow
+- Operator separators: magenta
+- Error messages: bright red
 
 Supported operators:
 
@@ -166,6 +188,8 @@ g++ main.cpp -o calculator
 ```
 
 Then run the executable and enter an expression when prompted.
+
+If you want to use the included build, run [main.exe](main.exe) directly on Windows.
 
 ## Notes
 
