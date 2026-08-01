@@ -3,13 +3,7 @@
 #include <stdexcept>
 #include <iostream>
 
-/**
- * STACK - Last In First Out (LIFO) Data Structure
- * Template class implementing stack using linked list
- * Generic type T allows any data type: int, char, double, string, etc.
- * Time Complexity: push() O(1), pop() O(1), top() O(1), size() O(n)
- */
-template <typename T>
+    template <typename T>
 class stack{
     private:
     struct node{
@@ -17,10 +11,9 @@ class stack{
     struct node* link;
     };
 
-    node* topNode=nullptr;  // Points to the top of stack (most recently added)
+    node* topNode=nullptr;
     public:
 
-    // Check if stack is empty - O(1) time complexity
     bool is_empty(){
         if(topNode==nullptr){
             return true;
@@ -28,43 +21,38 @@ class stack{
         return false;
     }
 
-    // Count total elements in stack - O(n) time complexity
-    // Traverses entire linked list to count nodes
     int size(){
         int s=0;
         node* tempNode=topNode;
         while(tempNode!=nullptr){
-            s++;  // Count each node
-            tempNode=tempNode->link;  // Move to next node
+            s++;
+            tempNode=tempNode->link;
         }
-        tempNode=nullptr;  // Avoid dangling pointer
+        tempNode=nullptr;
         return s;
     }
 
-    // Add element to top of stack - O(1) time complexity
     void push(T value){
-        node* newNode=new node;        // Create new node in memory
-        newNode->info=value;           // Store the value
-        newNode->link=topNode;         // New node points to current top
-        topNode=newNode;               // Update top to new node
+        node* newNode=new node;
+        newNode->info=value;
+        newNode->link=topNode;
+        topNode=newNode;
         return;
     }
     
-    // Remove and return element from top - O(1) time complexity
     T pop(){
         if(topNode==nullptr){
-            // Throw exception if attempting to pop from empty stack
+            // std::cout<<"stack is empty"<<std::endl;
             throw std::underflow_error("stack is empty");
         }
-        T temp=topNode->info;          // Save data from top node
+        T temp=topNode->info;
         node* tempNode=topNode;
-        topNode=topNode->link;         // Move top pointer to next node
-        delete tempNode;               // Free memory of removed node
-        return temp;                   // Return the saved data
+        topNode=topNode->link;
+        delete tempNode;
+        return temp;
         
     }
 
-    // Display all elements in stack from top to bottom
     void display(){
         node* tempNode=topNode;
         if(topNode==nullptr){
@@ -73,31 +61,26 @@ class stack{
         }
         while(tempNode!=nullptr){
             std::cout<<tempNode->info<<std::endl;
-            tempNode=tempNode->link;   // Move to next node
+            tempNode=tempNode->link;
         }
         return;
     }
 
-    // Get element at top without removing it - O(1) time complexity
     T top(){
         if(topNode==nullptr){
             std::cout<<"stack is empty";
-            throw std::underflow_error("stack is empty");
+        throw std::underflow_error("stack is empty");
         }
-        T temp=topNode->info;          // Get top element data
+        T temp=topNode->info;
         return temp;
     }
 
-    /**
-     * DESTRUCTOR - Automatically called when stack object is destroyed
-     * Frees all allocated memory to prevent memory leaks
-     * Traverses entire linked list and deletes each node one by one
-     */
-    ~stack() {
+    //destructer
+    ~stack() {  // destructor
         while(topNode != nullptr) {
             node* temp = topNode;
-            topNode = topNode->link;   // Move to next node before deletion
-            delete temp;               // Free current node's memory
+            topNode = topNode->link;
+            delete temp;  // frees each node
         }
     }
 };

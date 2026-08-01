@@ -1,68 +1,43 @@
 #include <iostream>
 #include <iomanip>
 #include <stdexcept>
-#include "stack.hpp"
 #include "evaluation.hpp"
-using namespace std;
-
-/**
- * MAIN PROGRAM - Expression Evaluation Calculator
- * 
- * Features:
- * - Accepts mathematical expressions with operators: +, -, *, /, ^
- * - Supports nested brackets: (), {}, []
- * - Supports decimal numbers: 3.14, 2.5, etc.
- * - Shows both postfix notation and final result
- * - Comprehensive error messages for invalid input
- */
+#include "postfix_prefix.hpp"
+// using namespace std;
 int main()
 {
-    // Display usage instructions to user
-    cout<<"--Enter 'exit' for stop calculation--"<<endl;
-    cout<<"--Enter expression without space--"<<endl;
-    cout<<"--Can evaluate decimal number--"<<endl;
-    cout<<"--(-3+4) type expression is not acceptable (unary minus not supported)--"<<endl;
-    
-    // Display available operators
-    cout << "////////available operator//////" << endl;
-    cout << "********************" << endl;
-    cout << "1. '-'=Subtract" << endl;
-    cout << "2. '+'=Addition" << endl;
-    cout << "3. '*'=Multiplication" << endl;
-    cout << "4. '/'=Divide" << endl;
-    cout << "5. '^'=Power" << endl;
-    cout << "*******************" << endl;
-    
+    std::cout<<"--Enter 'exit' for stop calculation--"<<std::endl;
+    std::cout<<"--Enter expression without space--"<<std::endl;
+    std::cout<<"--Can evaluate decimal number--"<<std::endl;
+    std::cout<<"--(-3+4) type expression is not acceptable"<<std::endl;
+    std::cout << "////////available operator//////" << std::endl;
+    std::cout << "********************" << std::endl;
+    std::cout << "1. '-'=Subtract" << std::endl;
+    std::cout << "2. '+'=Addition" << std::endl;
+    std::cout << "3. '*'=Multiplication" << std::endl;
+    std::cout << "4. '/'=Devide" << std::endl;
+    std::cout << "5. '^'=Power" << std::endl;
+    std::cout << "*******************" << std::endl;
+
     std::string str;
-    
-    // Main loop: keeps running until user enters "exit"
     while(1){
-        cout << ">>> ";                 // Prompt for user input
-        cin >> str;                     // Read expression string
-        
-        // Check if user wants to exit the program
+        std::cout << ">>> ";
+        std::cin >> str;
         if(str=="exit"){
-            break;                      // Exit the loop and end program
+            break;
         }
-    
     try{
-        // Process the expression
-        
-        // Step 1: Convert infix to postfix and display
-        cout << "postfix expression: " << postfix(str) << '\n';
-        
-        // Step 2: Evaluate expression to get numerical result
+
+    std::cout << "postfix expression: " << postfix(str) << '\n';
+    std::cout << "prefix expression: " << prefix(str) << '\n';
         long double result = evaluate(str);
-        
-        // Step 3: Display result with fixed-point notation (6 decimal places by default)
-        // cout << "result> "<<fixed <<setprecision(5)<< result << '\n';
-        cout << "result> "<<fixed << result << '\n';
+        // std::cout << "result>> "<<std::fixed << result << '\n';
+        std::cout << "result>> "<<std::fixed <<std::setprecision(10) <<result << '\n';
     }
     catch(std::runtime_error& e){
-        // Catch any runtime errors (validation failures, division by zero, etc.)
-        cout << "Invalid argument: " << e.what() << endl;  // Display descriptive error message
+        std::cout << "Invalid argument: " << e.what() << std::endl;
     }
     }
 
-    return 0;  // Program ends successfully
+    return 0;
 }

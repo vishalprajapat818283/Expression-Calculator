@@ -1,16 +1,16 @@
 # Expression Calculator
 
-This is a console-based infix expression calculator written in C++. It reads one expression at a time, converts it to postfix notation, and then evaluates the result using custom stack and queue implementations.
+This is a console-based infix expression calculator written in C++. It reads one expression at a time, converts it to postfix and prefix notation, and then evaluates the result using custom stack and queue implementations.
 
-This project is updated to version 2.0.
+This project is updated to version 2.1.
 
-It is also designed for DSA learning. The stack and queue are written manually instead of using STL containers so the expression-handling logic is easier to study, especially the custom stack behavior used during postfix conversion and evaluation.
+It is also designed for DSA learning. The stack and queue are written manually instead of using STL containers so the expression-handling logic is easier to study, especially the custom stack behavior used during postfix and prefix conversion and evaluation.
 
-## Version 2.0 Update
+## Version 2.1 Update
 
 The current version improves the project documentation and reflects the calculator features more clearly.
 
-- Expression evaluation through infix to postfix conversion
+- Expression evaluation through infix to postfix and prefix conversion
 - Custom linked-list stack and queue implementations
 - Support for decimal numbers
 - Support for nested brackets and operator precedence
@@ -19,14 +19,15 @@ The current version improves the project documentation and reflects the calculat
 ## Project Files
 
 - [main.cpp](main.cpp) handles the console loop, user prompts, and output.
-- [evaluation.hpp](evaluation.hpp) contains expression validation, postfix conversion, and evaluation.
+- [evaluation.hpp](evaluation.hpp) contains expression evaluation.
+- [postfix_prefix.hpp](postfix_prefix.hpp) contains the postfix and prefix conversion logic.
 - [stack.hpp](stack.hpp) provides the custom linked-list stack used by the algorithm.
 - [queue.hpp](queue.hpp) provides the custom linked-list queue used while parsing numbers.
 - [calculator-ui.svg](calculator-ui.svg) is a UI preview image for the calculator screen.
 
 ## Project Overview
 
-The calculator accepts a single infix expression at a time, converts it into postfix notation, and evaluates the postfix expression. The program runs continuously until the user types `exit`.
+The calculator accepts a single infix expression at a time, converts it into postfix and prefix notation, and evaluates the postfix expression. The program runs continuously until the user types `exit`.
 
 Supported operators:
 
@@ -54,12 +55,12 @@ The calculator runs continuously until you type `exit`.
 ## How It Works
 
 1. The program reads an infix expression from the console.
-2. [evaluation.hpp](evaluation.hpp) validates the expression for balanced brackets and valid operator placement.
-3. The infix expression is converted to postfix notation.
+2. [postfix_prefix.hpp](postfix_prefix.hpp) validates the expression for balanced brackets and valid operator placement.
+3. [postfix_prefix.hpp](postfix_prefix.hpp) converts the infix expression to postfix and prefix notation.
 4. The postfix expression is evaluated using a stack of numeric values.
-5. The postfix form and final answer are printed to the screen.
+5. The postfix form, prefix form, and final answer are printed to the screen.
 
-The calculator also prints the postfix form before showing the final answer.
+The calculator prints both expression forms before showing the final answer.
 
 ## File Description
 
@@ -75,13 +76,20 @@ This file handles the console interface.
 
 ### [evaluation.hpp](evaluation.hpp)
 
-This file contains the core logic of the calculator.
+This file contains the evaluation logic of the calculator.
 
+- `calculate()` applies one operator to two operands
+- `evaluate()` computes the final numeric result
+
+### [postfix_prefix.hpp](postfix_prefix.hpp)
+
+This file contains the expression conversion logic.
+
+- `reverse()` reverses and swaps brackets for prefix conversion
 - `isValid()` checks bracket matching and expression balance
 - `precedence()` returns operator precedence
 - `postfix()` converts infix to postfix notation
-- `calculate()` applies one operator to two operands
-- `evaluate()` computes the final numeric result
+- `prefix()` converts infix to prefix notation
 
 ### [stack.hpp](stack.hpp)
 
@@ -136,7 +144,13 @@ The calculator handles runtime errors during execution and shows a clear message
 ```text
 >>> (2+3)*4
 postfix expression: 2 3 + 4 *
+prefix expression: * + 2 3 4
 result> 20.000000
+
+>>> (5+7)*2
+postfix expression: 5 7 + 2 *
+prefix expression: * + 5 7 2
+result> 24.000000
 ```
 
 ## UI Screenshot
@@ -156,5 +170,5 @@ Then run the executable and enter an expression when prompted.
 ## Notes
 
 - The custom stack and queue are implemented with linked lists.
-- The postfix conversion and evaluation are done manually for learning purposes.
+- The postfix and prefix conversion logic are done manually for learning purposes.
 - The program is useful for studying expression parsing, custom stack behavior, and queue behavior in one workflow.
