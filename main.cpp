@@ -1,104 +1,68 @@
 #include <iostream>
 #include <iomanip>
-#include <windows.h>
-#include <string>
+#include <stdexcept>
 #include "stack.hpp"
 #include "evaluation.hpp"
-
 using namespace std;
 
-// Sets the console text color for a clearer command-line interface.
-void setColor(WORD color) {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
-}
-
-// Shows the calculator title and available operator instructions to the user.
-void printHeader() {
-    setColor(11); // light cyan
-    cout << "\n========================================\n";
-    cout << "        EXPRESSION CALCULATOR\n";
-    cout << "========================================\n";
-    setColor(7);
-
-    cout << "Enter 'exit' to stop calculation.\n";
-    cout << "Enter expression without spaces.\n\n";
-
-    setColor(10); // light green
-    cout << "Available operators:\n";
-    setColor(7);
-    cout << "  +  Addition\n";
-    cout << "  -  Subtraction\n";
-    cout << "  *  Multiplication\n";
-    cout << "  /  Division\n";
-    cout << "  ^  Power\n\n";
-}
-
-// Displays the input prompt shown before each expression is typed.
-void printPrompt() {
-    setColor(14); // yellow
-    cout << ">>> ";
-    setColor(7);
-}
-
-// Prints a formatted error message when an invalid expression is entered.
-void printError(const string& msg) {
-    setColor(12); // light red
-    cout << "Error: " << msg << "\n";
-    setColor(7);
-}
-
-// Shows the final evaluated result in a readable, formatted style.
-void printResult(long double result) {
-    setColor(10); // light green
-    cout << "Result: ";
-    setColor(15); // bright white
-    cout << fixed << setprecision(6) << result << "\n";
-    setColor(7);
-}
-
-// Displays the postfix form of the entered expression.
-void printPostfix(const string& expr) {
-    setColor(9); // light blue
-    cout << "Postfix: ";
-    setColor(15);
-    cout << postfix(expr) << "\n";
-    setColor(7);
-}
-
-// Main loop for the expression calculator application.
-int main() {
-    AllocConsole();
-
-    FILE* stream;
-    freopen_s(&stream, "CONOUT$", "w", stdout);
-    freopen_s(&stream, "CONIN$", "r", stdin);
-
-    printHeader();
-
-    string str;
-    while (true) {
-        printPrompt();
-        cin >> str;
-
-        if (str == "exit") {
-            break;
+/**
+ * MAIN PROGRAM - Expression Evaluation Calculator
+ * 
+ * Features:
+ * - Accepts mathematical expressions with operators: +, -, *, /, ^
+ * - Supports nested brackets: (), {}, []
+ * - Supports decimal numbers: 3.14, 2.5, etc.
+ * - Shows both postfix notation and final result
+ * - Comprehensive error messages for invalid input
+ */
+int main()
+{
+    // Display usage instructions to user
+    cout<<"--Enter 'exit' for stop calculation--"<<endl;
+    cout<<"--Enter expression without space--"<<endl;
+    cout<<"--Can evaluate decimal number--"<<endl;
+    cout<<"--(-3+4) type expression is not acceptable (unary minus not supported)--"<<endl;
+    
+    // Display available operators
+    cout << "////////available operator//////" << endl;
+    cout << "********************" << endl;
+    cout << "1. '-'=Subtract" << endl;
+    cout << "2. '+'=Addition" << endl;
+    cout << "3. '*'=Multiplication" << endl;
+    cout << "4. '/'=Divide" << endl;
+    cout << "5. '^'=Power" << endl;
+    cout << "*******************" << endl;
+    
+    std::string str;
+    
+    // Main loop: keeps running until user enters "exit"
+    while(1){
+        cout << ">>> ";                 // Prompt for user input
+        cin >> str;                     // Read expression string
+        
+        // Check if user wants to exit the program
+        if(str=="exit"){
+            break;                      // Exit the loop and end program
         }
-
-        try {
-            printPostfix(str);
-            long double result = evaluate(str);
-            printResult(result);
-            cout << "\n";
-        }
-        catch (const runtime_error& e) {
-            printError(e.what());
-            cout << "\n";
-        }
+    
+    try{
+        // Process the expression
+        
+        // Step 1: Convert infix to postfix and display
+        cout << "postfix expression: " << postfix(str) << '\n';
+        
+        // Step 2: Evaluate expression to get numerical result
+        long double result = evaluate(str);
+        
+        // Step 3: Display result with fixed-point notation (6 decimal places by default)
+        // cout << "result> "<<fixed <<setprecision(5)<< result << '\n';
+        cout << "result> "<<fixed << result << '\n';
+    }
+    catch(std::runtime_error& e){
+        // Catch any runtime errors (validation failures, division by zero, etc.)
+        cout << "Invalid argument: " << e.what() << endl;  // Display descriptive error message
+    }
     }
 
-    setColor(7);
-    cout << "Goodbye.\n";
-    std::cin.ignore();
-    std::cin.get();
-    return 0;
+    return 0;  // Program ends successfully
 }

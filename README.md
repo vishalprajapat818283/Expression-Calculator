@@ -1,16 +1,28 @@
 # Expression Calculator
 
-This project is a console-based infix expression calculator written in C++. It converts an input expression to postfix form and then evaluates the result using custom stack and queue implementations.
+This is a console-based infix expression calculator written in C++. It reads one expression at a time, converts it to postfix notation, and then evaluates the result using custom stack and queue implementations.
 
-It is also designed as a DSA learning project, with the stack and queue written manually instead of using STL containers.
+This project is updated to version 2.0.
 
-The project is built around these source files:
+It is also designed for DSA learning. The stack and queue are written manually instead of using STL containers so the expression-handling logic is easier to study, especially the custom stack behavior used during postfix conversion and evaluation.
 
-- [main.cpp](main.cpp) for the user interface and program flow
-- [evaluation.hpp](evaluation.hpp) for validation, postfix conversion, and evaluation logic
-- [stack.hpp](stack.hpp) for the linked-list stack used by the algorithm
-- [queue.hpp](queue.hpp) for the linked-list queue used to collect multi-digit numbers
+## Version 2.0 Update
 
+The current version improves the project documentation and reflects the calculator features more clearly.
+
+- Expression evaluation through infix to postfix conversion
+- Custom linked-list stack and queue implementations
+- Support for decimal numbers
+- Support for nested brackets and operator precedence
+- Cleaner console output and updated project notes
+
+## Project Files
+
+- [main.cpp](main.cpp) handles the console loop, user prompts, and output.
+- [evaluation.hpp](evaluation.hpp) contains expression validation, postfix conversion, and evaluation.
+- [stack.hpp](stack.hpp) provides the custom linked-list stack used by the algorithm.
+- [queue.hpp](queue.hpp) provides the custom linked-list queue used while parsing numbers.
+- [calculator-ui.svg](calculator-ui.svg) is a UI preview image for the calculator screen.
 
 ## Project Overview
 
@@ -30,13 +42,22 @@ Supported brackets:
 - Curly brackets: `{}`
 - Square brackets: `[]`
 
+## What It Supports
+
+- Operators: `+`, `-`, `*`, `/`, `^`
+- Brackets: `()`, `{}`, `[]`
+- Decimal numbers such as `3.14`, `2.5`, and `0.001`
+- Nested bracketed expressions
+
+The calculator runs continuously until you type `exit`.
+
 ## How It Works
 
-1. The program reads an expression from the console in [main.cpp](main.cpp).
-2. The expression is checked for validity in [evaluation.hpp](evaluation.hpp).
-3. The valid infix expression is converted to postfix notation.
+1. The program reads an infix expression from the console.
+2. [evaluation.hpp](evaluation.hpp) validates the expression for balanced brackets and valid operator placement.
+3. The infix expression is converted to postfix notation.
 4. The postfix expression is evaluated using a stack of numeric values.
-5. The result is printed on the screen.
+5. The postfix form and final answer are printed to the screen.
 
 The calculator also prints the postfix form before showing the final answer.
 
@@ -52,8 +73,6 @@ This file handles the console interface.
 - Prints the final calculated result
 - Displays error messages for invalid expressions or runtime errors
 
-It also uses Windows console functions to color the output.
-
 ### [evaluation.hpp](evaluation.hpp)
 
 This file contains the core logic of the calculator.
@@ -66,7 +85,7 @@ This file contains the core logic of the calculator.
 
 ### [stack.hpp](stack.hpp)
 
-This file provides a generic linked-list stack implementation.
+This file provides the custom linked-list stack implementation.
 
 Main operations:
 
@@ -78,7 +97,7 @@ Main operations:
 
 ### [queue.hpp](queue.hpp)
 
-This file provides a generic linked-list queue implementation.
+This file provides the custom linked-list queue implementation.
 
 Main operations:
 
@@ -87,18 +106,9 @@ Main operations:
 
 The queue is used while building and evaluating multi-digit numbers.
 
-## DSA Learning Focus
+## Input Rules
 
-This project highlights two core data structures used in algorithm design:
-
-- The custom stack supports operator handling and postfix evaluation.
-- The custom queue helps process multi-digit numbers during conversion and evaluation.
-- Both structures are implemented with linked lists to make the internal logic easier to study.
-- The code is useful for understanding LIFO and FIFO behavior in a real calculator workflow.
-
-## Input Format
-
-To get correct output, enter the expression without spaces.
+Enter the expression without spaces.
 
 Examples:
 
@@ -107,40 +117,44 @@ Examples:
 (5+7)*2
 10/[2+3]
 2^3^2
+3.5*2
 ```
 
 ## Limitations
 
-- Expressions must not contain spaces
-- Only integer digits are handled by the current implementation
-- Unary operators such as `-5` are not supported directly
-- Invalid bracket order or invalid symbols will trigger an error
-- Division by zero is detected and reported
+- Spaces are not supported in the input expression.
+- Unary operators such as `-5` are not supported.
+- Invalid bracket order, invalid symbols, or malformed numbers will trigger an error.
+- Division by zero is detected and reported.
+
+## Runtime Error Handling
+
+The calculator handles runtime errors during execution and shows a clear message when something goes wrong. This includes cases like invalid input, broken expression structure, or division by zero, so the program can keep running and accept the next expression after an error.
 
 ## Example Run
 
 ```text
 >>> (2+3)*4
-Postfix: 2 3 + 4 *
-Result: 20.000000
+postfix expression: 2 3 + 4 *
+result> 20.000000
 ```
+
+## UI Screenshot
+
+![Expression Calculator UI](calculator-ui.svg)
 
 ## Build and Run
 
-This project is intended for Windows because `main.cpp` uses `windows.h` and `AllocConsole()`.
-
-In Visual Studio, open the project and build it normally.
-
-If you are compiling with MinGW on Windows, use a command similar to:
+Compile the program with your C++ compiler. For example, on Windows with MinGW:
 
 ```bash
 g++ main.cpp -o calculator
 ```
 
-Then run the program and enter an expression when prompted.
+Then run the executable and enter an expression when prompted.
 
 ## Notes
 
-- The calculator uses a custom stack and a custom queue instead of STL containers.
-- The postfix conversion and evaluation logic are implemented manually for learning purposes.
-- The program is suitable for data structures and algorithm evaluation work.
+- The custom stack and queue are implemented with linked lists.
+- The postfix conversion and evaluation are done manually for learning purposes.
+- The program is useful for studying expression parsing, custom stack behavior, and queue behavior in one workflow.
