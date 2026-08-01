@@ -7,10 +7,12 @@
 
 using namespace std;
 
+// Sets the console text color for a clearer command-line interface.
 void setColor(WORD color) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
+// Shows the calculator title and available operator instructions to the user.
 void printHeader() {
     setColor(11); // light cyan
     cout << "\n========================================\n";
@@ -31,18 +33,21 @@ void printHeader() {
     cout << "  ^  Power\n\n";
 }
 
+// Displays the input prompt shown before each expression is typed.
 void printPrompt() {
     setColor(14); // yellow
     cout << ">>> ";
     setColor(7);
 }
 
+// Prints a formatted error message when an invalid expression is entered.
 void printError(const string& msg) {
     setColor(12); // light red
     cout << "Error: " << msg << "\n";
     setColor(7);
 }
 
+// Shows the final evaluated result in a readable, formatted style.
 void printResult(long double result) {
     setColor(10); // light green
     cout << "Result: ";
@@ -51,6 +56,7 @@ void printResult(long double result) {
     setColor(7);
 }
 
+// Displays the postfix form of the entered expression.
 void printPostfix(const string& expr) {
     setColor(9); // light blue
     cout << "Postfix: ";
@@ -59,6 +65,7 @@ void printPostfix(const string& expr) {
     setColor(7);
 }
 
+// Main loop for the expression calculator application.
 int main() {
     AllocConsole();
 
